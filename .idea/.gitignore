@@ -6,3 +6,15 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+
+/.idea
+/.idea/
+/target
+web
+NetflixClone.iml
+!/.idea/
+!/target/
+/target/
+/.idea/
+/.idea/artifacts/
