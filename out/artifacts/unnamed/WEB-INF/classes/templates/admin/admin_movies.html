@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/static/css/admin_movies.css">
+</head>
+<body>
+<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="https://www.freepnglogos.com/uploads/netflix-logo-0.png" alt="Netflix Logo" class="brand__logo">
+        </div>
+        <div class="profile">
+            <img src="/static/img/icon.png" alt="User Profile">
+            <h2>Morgan</h2>
+        </div>
+        <nav class="menu">
+            <a href="#" class="menu-item" id="menu-movies">Movies</a>
+            <a href="#" class="menu-item" id="menu-users">Users</a>
+            <a href="#" class="menu-item" id="menu-create-movie">Create Movie</a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Movies Section -->
+        <div class="movies-section" id="movies-section">
+            <!-- Sorting Section -->
+            <div class="sorting-section">
+                <form id="sorting-form" action="/sort-movies" method="get">
+                    <label for="sort-by">Sort by:</label>
+                    <select id="sort-by" name="sort-by" class="sort-select">
+                        <option value="rating">Rating</option>
+                        <option value="name">Name</option>
+                    </select>
+                </form>
+            </div>
+            <div class="table-section">
+                <h2>Movies List</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Director</th>
+                        <th>Duration (min)</th>
+                        <th>Rating</th>
+                        <th>Language</th>
+                        <th>Release Date</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Example rows -->
+                    <tr class="table-row">
+                        <td>1</td>
+                        <td><img src="/static/img/reluctant.png" alt="Inception" class="movie-image"></td>
+                        <td>Inception</td>
+                        <td>Christopher Nolan</td>
+                        <td>148</td>
+                        <td>8.8</td>
+                        <td>English</td>
+                        <td>2010-07-16</td>
+                        <td>
+                            <a href="/create-cinema/1" class="action-link create-cinema-button">Create Event</a>
+                            <a href="#" class="action-link delete-button" data-id="1">Delete Movie</a>
+                        </td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Users Section -->
+        <div class="users-section" id="users-section" style="display: none;">
+            <div class="sorting-section">
+                <label for="sort-by-users">Sort by:</label>
+                <select id="sort-by-users" name="sort-by-users" class="sort-select">
+                    <option value="username">Username</option>
+                    <option value="date">Joined Date</option>
+                </select>
+            </div>
+            <div class="table-section">
+                <h2>Users List</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Profile Image</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Joined Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Example rows -->
+                    <tr class="table-row">
+                        <td>1</td>
+                        <td><img src="/static/img/icon.png" alt="User Icon" class="user-image"></td>
+                        <td>john_doe</td>
+                        <td>john@example.com</td>
+                        <td>2023-01-15</td>
+                        <td>Active</td>
+                        <td>
+                            <a href="#" class="action-link block-button" data-id="1">Block User</a>
+                            <a href="/send-email/1" class="action-link send-email-button">Send Email</a>
+                        </td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Create Movie Section -->
+        <div class="create-movie-section" id="create-movie-section" style="display: none;">
+            <h2>Create Movie</h2>
+            <form id="create-movie-form" action="/create-movie" method="post" enctype="multipart/form-data">
+                <label for="movie-title">Title:</label>
+                <input type="text" id="movie-title" name="title" required>
+
+                <label for="movie-image">Movie Image:</label>
+                <input type="file" id="movie-image" name="movie_image" accept="image/*" required>
+
+                <label for="movie-director">Director:</label>
+                <input type="text" id="movie-director" name="director" required>
+
+                <label for="movie-duration">Duration (min):</label>
+                <input type="number" id="movie-duration" name="duration" required>
+
+                <label for="movie-rating">Rating:</label>
+                <input type="number" id="movie-rating" name="rating" step="0.1" min="0" max="10" required>
+
+                <label for="movie-language">Language:</label>
+                <input type="text" id="movie-language" name="language" required>
+
+                <label for="movie-description">Description:</label>
+                <textarea id="movie-description" name="description" rows="4" required></textarea>
+
+                <label for="movie-thriller-link">Thriller Link:</label>
+                <input type="text" id="movie-thriller-link" name="thriller_link" required>
+
+                <label for="movie-release-date">Release Date:</label>
+                <input type="date" id="movie-release-date" name="release_date" required>
+
+                <label for="movie-scenes-images">Additional Scene Images:</label>
+                <input type="file" id="movie-scenes-images" name="scene_images[]" accept="image/*" multiple>
+
+                <button type="submit">Create Movie</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const menuMovies = document.getElementById('menu-movies');
+        const menuUsers = document.getElementById('menu-users');
+        const menuCreateMovie = document.getElementById('menu-create-movie');
+        const moviesSection = document.getElementById('movies-section');
+        const usersSection = document.getElementById('users-section');
+        const createMovieSection = document.getElementById('create-movie-section');
+
+        menuMovies.addEventListener('click', function () {
+            moviesSection.style.display = 'block';
+            usersSection.style.display = 'none';
+            createMovieSection.style.display = 'none';
+        });
+
+        menuUsers.addEventListener('click', function () {
+            moviesSection.style.display = 'none';
+            usersSection.style.display = 'block';
+            createMovieSection.style.display = 'none';
+        });
+
+        menuCreateMovie.addEventListener('click', function () {
+            moviesSection.style.display = 'none';
+            usersSection.style.display = 'none';
+            createMovieSection.style.display = 'block';
+        });
+
+        document.querySelectorAll('.delete-button').forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                if (confirm('Are you sure you want to delete this movie?')) {
+                    const movieId = this.getAttribute('data-id');
+                    fetch(`/delete-movie/${movieId}`, { method: 'DELETE' })
+                        .then(response => {
+                            if (response.ok) {
+                                window.location.reload();
+                            } else {
+                                alert('Failed to delete movie.');
+                            }
+                        });
+                }
+            });
+        });
+
+        document.querySelectorAll('.block-button').forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                if (confirm('Are you sure you want to block this user?')) {
+                    const userId = this.getAttribute('data-id');
+                    fetch(`/block-user/${userId}`, { method: 'POST' })
+                        .then(response => {
+                            if (response.ok) {
+                                window.location.reload();
+                            } else {
+                                alert('Failed to block user.');
+                            }
+                        });
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

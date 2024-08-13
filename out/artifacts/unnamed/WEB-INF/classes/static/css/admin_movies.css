@@ -1,0 +1,243 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #181818;
+    color: #fff;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #222;
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+    border-right: 1px solid #444;
+}
+
+.logo img {
+    width: 60px;
+    margin-bottom: 20px;
+}
+
+.profile {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #e50914;
+}
+
+.profile h2 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.profile-link {
+    display: block;
+    color: #e50914;
+    text-decoration: none;
+    margin: 5px 0;
+}
+
+.profile-link:hover {
+    text-decoration: underline;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    background-color: #333;
+    transition: background-color 0.3s ease, padding-left 0.3s ease;
+}
+
+.menu-item:hover {
+    background-color: #444;
+    padding-left: 20px;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    height: calc(100vh - 40px);
+}
+
+.sorting-section {
+    margin-bottom: 20px;
+}
+
+.sort-select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    background-color: #333;
+    color: #fff;
+}
+
+.table-section {
+    margin-bottom: 20px;
+}
+
+.table-section h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #e50914;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #252525;
+    color: #fff;
+    text-align: left;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #444;
+}
+
+table th {
+    background-color: #333;
+}
+
+.table-row {
+    transition: background-color 0.3s ease;
+}
+
+.table-row:hover {
+    background-color: #333;
+}
+
+.movie-image {
+    width: 250px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.user-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #444;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+.action-link {
+    display: inline-block;
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+    margin: 2px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.create-cinema-button {
+    background-color: #28a745;
+}
+
+.create-cinema-button:hover {
+    background-color: #218838;
+}
+
+.delete-button {
+    background-color: #dc3545;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+.block-button {
+    background-color: #ffc107;
+}
+
+.block-button:hover {
+    background-color: #e0a800;
+}
+
+.send-email-button {
+    background-color: #007bff;
+}
+
+.send-email-button:hover {
+    background-color: #0069d9;
+}
+
+/* Create Movie Section Styles */
+.create-movie-section {
+    background-color: #252525;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.create-movie-section h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #e50914;
+}
+
+.create-movie-section form {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-movie-section label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #ccc;
+}
+
+.create-movie-section input[type="text"],
+.create-movie-section input[type="number"],
+.create-movie-section input[type="date"],
+.create-movie-section textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    background-color: #333;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.create-movie-section textarea {
+    resize: vertical;
+}
+
+.create-movie-section button {
+    padding: 10px 15px;
+    background-color: #e50914;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.create-movie-section button:hover {
+    background-color: #d40813;
+}

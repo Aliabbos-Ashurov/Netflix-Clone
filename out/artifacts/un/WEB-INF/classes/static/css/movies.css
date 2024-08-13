@@ -1,0 +1,153 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #141414;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.header__brand {
+    display: flex;
+    align-items: center;
+}
+
+.brand__logo {
+    height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.header__brand:hover .brand__logo {
+    transform: scale(1.1);
+}
+
+.header__nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header__nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.header__nav a:hover {
+    color: #e50914;
+}
+
+.profile-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.profile-icon {
+    height: 30px;
+}
+
+/* Content Styles */
+.movies-page {
+    margin-top: 80px;
+    padding: 20px;
+}
+
+/* Centering the title */
+.title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px; /* Adjust the height as needed */
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 2em;
+    color: #fff;
+}
+
+/* Movie List Styles */
+.movie-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 10px;
+    overflow-x: auto;
+}
+
+/* Ensure 4 or 5 movies per row */
+@media (min-width: 1200px) {
+    .movie-grid {
+        grid-template-columns: repeat(5, 1fr); /* 5 movies per row on large screens */
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1199px) {
+    .movie-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 movies per row on medium screens */
+    }
+}
+
+@media (max-width: 899px) {
+    .movie-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 movies per row on smaller screens */
+    }
+}
+
+/* Movie Card Styles */
+.movie-card {
+    background: #1c1c1c;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 75%;
+    object-fit: cover;
+}
+
+.movie-title {
+    padding: 10px;
+    text-align: center;
+    font-size: 1.2em;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.7);
+}

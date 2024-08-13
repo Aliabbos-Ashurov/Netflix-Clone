@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streaming Service</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+<header class="header">
+    <div class="header__brand">
+        <img src="https://www.freepnglogos.com/uploads/netflix-logo-0.png" alt="Netflix Logo" class="brand__logo">
+    </div>
+    <nav class="header__nav">
+        <div class="header__search">
+            <input type="text" id="search-bar" placeholder="Search movies..." onkeyup="performSearch()">
+            <div id="search-results"></div>
+        </div>
+        <a href="#">HOME</a>
+        <a href="#">MOVIES</a>
+        <a href="#" class="profile-link">PROFILE
+            <img src="/static/img/icon.png" alt="Profile Icon" class="profile-icon">
+        </a>
+    </nav>
+</header>
+
+<aside class="sidebar animate__animated animate__slideInLeft">
+    <h2>Categories</h2>
+    <ul>
+        <li><a href="#sports">Sports</a></li>
+        <li><a href="#movies">Kids</a></li>
+        <li><a href="#family">Family</a></li>
+        <li><a href="#family">Thriller</a></li>
+        <li><a href="#drama">Drama</a></li>
+        <li><a href="#comedy">Comedy</a></li>
+        <li><a href="#comedy">Horror</a></li>
+        <li><a href="#comedy">Action</a></li>
+        <li><a href="#comedy">Western</a></li>
+    </ul>
+</aside>
+
+<main class="main-content">
+    <section class="banner animate__animated animate__fadeIn">
+        <img src="/static/img/lacasadepapel.png" alt="Main Banner" class="banner-image">
+        <div class="banner-title animate__animated animate__fadeInUp">Real Madrid NIGGA</div>
+    </section>
+
+    <section class="movie-sections">
+        <div class="movie-category">
+            <h2>Sports</h2>
+            <div class="movie-list">
+                <div class="movie-item animate__animated">
+                    <img src="/static/img/basketball.png" alt="Sports Movie 1">
+                    <p class="movie-name">Sports Movie 1</p>
+                    <form action="/movies/select" method="post" class="hidden-form">
+                        <input type="hidden" name="movieId" value="1">
+                        <button type="submit" class="hvr-sweep-to-right">Select</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="movie-category">
+            <h2>Movies</h2>
+            <div class="movie-list">
+                <div class="movie-item animate__animated">
+                    <img src="/static/img/reluctant.png" alt="Movie 2">
+                    <p class="movie-name">Movie 2</p>
+                    <form action="/movies/select" method="post" class="hidden-form">
+                        <input type="hidden" name="movieId" value="4">
+                        <button type="submit" class="hvr-sweep-to-right">Select</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="movie-category">
+            <h2>Zoo</h2>
+            <div class="movie-list">
+                <div class="movie-item animate__animated">
+                    <img src="/static/img/monkey.png" alt="Zoo Movie 2">
+                    <p class="movie-name">Zoo Movie 2</p>
+                    <form action="/movies/select" method="post" class="hidden-form">
+                        <input type="hidden" name="movieId" value="6">
+                        <button type="submit" class="hvr-sweep-to-right">Select</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+    document.querySelectorAll('.movie-item').forEach(item => {
+        item.addEventListener('click', () => {
+            item.querySelector('.hidden-form').submit();
+        });
+    });
+    function performSearch() {
+        const query = document.getElementById("search-bar").value;
+        if (query.length > 2) {
+            fetch(`/search?query=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const searchResults = document.getElementById("search-results");
+                    searchResults.innerHTML = "";
+                    if (data.length > 0) {
+                        const ul = document.createElement("ul");
+                        data.forEach(movie => {
+                            const li = document.createElement("li");
+                            li.textContent = movie.title;
+                            li.onclick = () => { window.location.href = `/movies/${movie.id}`; };
+                            ul.appendChild(li);
+                        });
+                        searchResults.appendChild(ul);
+                        searchResults.style.display = "block";
+                    } else {
+                        searchResults.style.display = "none";
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        } else {
+            document.getElementById("search-results").style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>

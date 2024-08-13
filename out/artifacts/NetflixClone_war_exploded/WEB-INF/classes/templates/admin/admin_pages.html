@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/static/css/admin_pages.css">
+</head>
+<body>
+<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="https://www.freepnglogos.com/uploads/netflix-logo-0.png" alt="Netflix Logo" class="brand__logo">
+        </div>
+        <div class="profile">
+            <img src="/static/img/icon.png" alt="User Profile">
+            <h2 sec:authorize="isAuthenticated()" th:text="${#authentication.name}"></h2>
+        </div>
+        <nav class="menu">
+            <a href="#" class="menu-item" id="menu-movies">Movies</a>
+            <a href="#" class="menu-item" id="menu-users">Users</a>
+            <a href="#" class="menu-item" id="menu-create-movie">Create Movie</a>
+            <a href="/main/home" class="menu-item" style="background-color: #aaaaaa">Back</a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <div class="movies-section" id="movies-section">
+            <!--<div class="sorting-section">
+                <form id="sorting-form" action="/sort-movies" method="get">
+                    <label for="sort-by">Sort by:</label>
+                    <select id="sort-by" name="sort-by" class="sort-select">
+                        <option value="rating">Rating</option>
+                        <option value="name">Name</option>
+                    </select>
+                </form>
+            </div>-->
+            <div class="table-section">
+                <h2>Movies List</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Director</th>
+                        <th>Duration (min)</th>
+                        <th>Rating</th>
+                        <th>Language</th>
+                        <th>Release Date</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="movie, iterStat : ${movieList}" class="table-row">
+                        <td th:text="${iterStat.index + 1}"></td>
+                        <td><img th:src="@{/static/img/{filename}(filename=${movie.movieImageGeneratedName})}"
+                                 alt="Movie Image" class="movie-image"></td>
+                        <td th:text="${movie.movieTitle}"></td>
+                        <td th:text="${movie.movieDirector}"></td>
+                        <td th:text="${movie.movieDuration}"></td>
+                        <td th:text="${movie.movieRating}"></td>
+                        <td th:text="${movie.movieLanguage}"></td>
+                        <td th:text="${movie.movieReleaseDate}"></td>
+                        <td>
+                            <a th:href="@{/admin/event/{id}(id=${movie.movieId})}" class="action-link create-cinema-button">Event</a>
+                            <form action="/admin/delete-movie" method="post" style="display:inline;">
+                                <input type="hidden" name="movieId" th:value="${movie.movieId()}" />
+                                <button type="submit" class="action-link delete-button">Delete Movie</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Users Section -->
+        <div class="users-section" id="users-section" style="display: none;">
+            <!--<div class="sorting-section">
+                <label for="sort-by-users">Sort by:</label>
+                <select id="sort-by-users" name="sort-by-users" class="sort-select">
+                    <option value="username">Username</option>
+                    <option value="date">Joined Date</option>
+                </select>
+            </div>-->
+            <div class="table-section">
+                <h2>Users List</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Profile Image</th>
+                        <th>Fullname</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user, iterStat : ${userList}" class="table-row">
+                        <td th:text="${iterStat.index + 1}"></td>
+                        <td><img src="/static/img/icon.png" alt="User Image" class="user-image"></td>
+                        <td th:text="${user.getFullname()}"></td>
+                        <td th:text="${user.getUsername()}"></td>
+                        <td th:text="${user.getEmail()}"></td>
+                        <td>
+                            <form action="/admin/block-user" method="post" style="display:inline;">
+                                <input type="hidden" name="id" th:value="${user.getId()}">
+                                <button type="submit" class="action-link block-button">Block User</button>
+                            </form>
+                            <form action="/send-email/{id}" method="post" style="display:inline;">
+                                <input type="hidden" name="id" th:value="${user.getId()}">
+                                <button type="submit" class="action-link send-email-button">Send Email</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Create Movie Section -->
+        <div class="create-movie-section" id="create-movie-section" style="display: none;">
+            <h2>Create Movie</h2>
+            <form id="create-movie-form" action="/admin/create_movie" method="post" enctype="multipart/form-data">
+                <label for="movie-title">Title:</label>
+                <input type="text" id="movie-title" name="title" required>
+
+                <fieldset>
+                    <legend>Categories:</legend>
+                    <div th:each="category : ${categoryList}">
+                        <label>
+                            <input type="checkbox" name="categories" th:value="${category.id}">
+                            <span th:text="${category.name}"></span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <label for="movie-image">Movie Image:</label>
+                <input type="file" id="movie-image" name="movieImage" accept="image/*" required>
+
+                <label for="movie-director">Director:</label>
+                <input type="text" id="movie-director" name="director" required>
+
+                <label for="movie-duration">Duration (min):</label>
+                <input type="number" id="movie-duration" name="duration" required>
+
+                <label for="movie-rating">Rating:</label>
+                <input type="number" id="movie-rating" name="rating" step="0.1" min="0" max="10" required>
+
+                <label for="movie-language">Language:</label>
+                <input type="text" id="movie-language" name="language" required>
+
+                <label for="movie-description">Description:</label>
+                <textarea id="movie-description" name="description" rows="4" required></textarea>
+
+                <label for="movie-thriller-link">Thriller Link:</label>
+                <input type="text" id="movie-thriller-link" name="thrillerLink" required>
+
+                <label for="movie-release-date">Release Date:</label>
+                <input type="date" id="movie-release-date" name="releaseDate" required>
+
+                <label for="movie-scenes-images">Additional Scene Images:</label>
+                <input type="file" id="movie-scenes-images" name="sceneImages" accept="image/*" multiple="multiple">
+                <button type="submit">Create Movie</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const menuMovies = document.getElementById('menu-movies');
+        const menuUsers = document.getElementById('menu-users');
+        const menuCreateMovie = document.getElementById('menu-create-movie');
+        const moviesSection = document.getElementById('movies-section');
+        const usersSection = document.getElementById('users-section');
+        const createMovieSection = document.getElementById('create-movie-section');
+
+        menuMovies.addEventListener('click', function () {
+            console.log('Movies menu clicked');
+            moviesSection.style.display = 'block';
+            usersSection.style.display = 'none';
+            createMovieSection.style.display = 'none';
+        });
+
+        menuUsers.addEventListener('click', function () {
+            moviesSection.style.display = 'none';
+            usersSection.style.display = 'block';
+            createMovieSection.style.display = 'none';
+        });
+
+        menuCreateMovie.addEventListener('click', function () {
+            moviesSection.style.display = 'none';
+            usersSection.style.display = 'none';
+            createMovieSection.style.display = 'block';
+        });
+        document.querySelectorAll('.send-email-button').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                const userId = this.closest('form').querySelector('input[name="id"]').value;
+                fetch(`/send-email/${userId}`, {
+                    method: 'POST'
+                }).then(response => {
+                    if (response.ok) {
+                        alert('Email sent successfully.');
+                    } else {
+                        alert('Error sending email.');
+                    }
+                });
+            });
+        });
+
+        document.getElementById('sort-by').addEventListener('change', function () {
+            document.getElementById('sorting-form').submit();
+        });
+
+        document.getElementById('sort-by-users').addEventListener('change', function () {
+            document.getElementById('sorting-form').submit();
+        });
+    });
+</script>
+</body>
+</html>

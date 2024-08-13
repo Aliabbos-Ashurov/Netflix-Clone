@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streaming Service</title>
+    <link rel="stylesheet" href="/static/css/login.css">
+</head>
+<body>
+<div class="overlay"></div>
+
+<div class="navbar">
+    <div class="navbar__brand">
+        <img decoding="async" src="https://www.freepnglogos.com/uploads/netflix-logo-0.png" alt="logo"
+             class="brand__logo"/>
+    </div>
+    <a href="/auth/signup" class="signup-btn">Sign Up</a>
+</div>
+
+<div class="content">
+    <div th:if="${errorMessage}">
+        <span th:text="${errorMessage}"></span>
+    </div>
+    <h1>Unlimited Movies, TV Shows and More.</h1>
+    <p>Ready to watch? Enter your username and password to start your membership.</p>
+    <form action="/auth/login" method="post">
+        <div class="form__container">
+            <input type="text" placeholder="Username" name="username">
+            <input type="password" placeholder="Password" name="password">
+            <button class="login-btn">Get Started</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

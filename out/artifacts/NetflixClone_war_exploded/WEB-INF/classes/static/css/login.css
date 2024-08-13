@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    color: white;
+    background: url('/static/img/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.navbar {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+}
+
+.navbar__brand .brand__logo {
+    width: 100px;
+}
+
+.signup-btn {
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+    padding: 10px 20px;
+    background-color: #f6121d;
+    border-radius: 3px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.signup-btn:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+}
+
+.content {
+    z-index: 2;
+    text-align: center;
+    max-width: 600px;
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+}
+
+p {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+}
+
+.form__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1em;
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 15px;
+    font-size: 1em;
+    border: none;
+    border-radius: 3px;
+    margin-bottom: 1em;
+    width: 350px; /* Ensure the width is consistent */
+    max-width: 100%;
+    outline: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    transform: scale(1.02);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.login-btn {
+    padding: 15px;
+    font-size: 1em;
+    background-color: #e50914;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 3px;
+    width: 350px; /* Match the width of input fields */
+    max-width: 100%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #f6121d;
+    transform: scale(1.05);
+}

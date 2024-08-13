@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Ticket</title>
+  <style>
+    /* booking.css */
+    body {
+      background-color: #141414;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .booking-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    .booking-content {
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .booking-content h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 18px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #333;
+      border-radius: 4px;
+      background-color: #222;
+      color: #fff;
+    }
+
+    .form-group input[readonly],
+    .form-group select[readonly] {
+      background-color: #333;
+    }
+
+    .book-button {
+      background-color: #e50914;
+      color: #fff;
+      border: none;
+      padding: 15px;
+      font-size: 18px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .book-button:hover {
+      background-color: #b81d26;
+    }
+
+  </style>
+</head>
+<body>
+<div class="booking-container">
+  <div class="booking-content">
+    <h1>Book Your Ticket</h1>
+    <form id="booking-form" method="post" action="/submit-booking">
+      <div class="form-group">
+        <label for="movie-name">Movie:</label>
+        <input type="text" id="movie-name" name="movie_name" value="Avengers: Infinity War" readonly>
+      </div>
+      <div class="form-group">
+        <label for="showtime">Showtime:</label>
+        <select id="showtime" name="showtime" required>
+          <option value="">Select Showtime</option>
+          <option value="12:00 PM">12:00 PM</option>
+          <option value="03:00 PM">03:00 PM</option>
+          <option value="06:00 PM">06:00 PM</option>
+          <option value="09:00 PM">09:00 PM</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="text" id="price" name="price" value="$15.00" readonly>
+      </div>
+      <div class="form-group">
+        <label for="status">Status:</label>
+        <input type="text" id="status" name="status" value="Available" readonly>
+      </div>
+      <button type="submit" class="book-button">Book Ticket</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

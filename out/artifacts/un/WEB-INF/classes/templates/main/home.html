@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME PAGE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
+    <link rel="stylesheet" href="/static/css/home.css">
+
+</head>
+<body>
+<header class="header">
+    <div class="header__brand">
+        <img src="https://www.freepnglogos.com/uploads/netflix-logo-0.png" alt="Netflix Logo" class="brand__logo">
+    </div>
+    <nav class="header__nav">
+        <div class="header__search">
+            <input type="text" id="search-bar" placeholder="Search movies..." onkeyup="performSearch()">
+            <div id="search-results"></div>
+        </div>
+        <a href="/main/home">HOME</a>
+        <a href="/main/movies">MOVIES</a>
+        <a href="/auth/login" sec:authorize="isAnonymous()">LOG IN</a>
+        <a href="/admin/admin_pages" sec:authorize="hasRole('ADMIN')">ADMIN PROFILE</a>
+        <a href="/auth/profile" class="profile-link">PROFILE
+            <img src="/static/img/icon.png" alt="Profile Icon" class="profile-icon">
+        </a>
+    </nav>
+</header>
+
+<aside class="sidebar animate__animated animate__slideInLeft">
+    <h2>Categories</h2>
+    <ul>
+        <li th:each="category : ${categoryList}">
+            <form th:action="@{/main/movies/{category_param}(category_param=${category.name})}" method="post">
+                <button type="submit"
+                        style="background:none;border:none;color:inherit;cursor:pointer;font:inherit;text-align:left;padding:0;"
+                        th:text="${category.name}">Category Name
+                </button>
+            </form>
+        </li>
+    </ul>
+</aside>
+
+<main class="main-content">
+    <section class="banner animate__animated animate__fadeIn">
+        <form action="/main/movie-info" method="post">
+            <input type="hidden" name="movie_id" th:value="${lastMovie.movieId()}">
+            <label for="submitButton" style="cursor: pointer;">
+                <img
+                        th:src="@{'/static/img/' + ${lastMovie.movieImageGeneratedName()}}"
+                        alt="Main Banner"
+                        class="banner-image"
+                >
+            </label>
+            <input type="submit" id="submitButton" style="display: none;">
+        </form>
+        <div class="banner-title animate__animated animate__fadeInUp" th:text="${lastMovie.movieTitle()}"></div>
+    </section>
+
+    <section class="movie-sections">
+        <div th:each="entry : ${movieList}">
+            <div class="movie-category">
+                <h2 th:text="${entry.key}">Category Name</h2>
+                <div class="movie-list">
+                    <div th:each="movie : ${entry.value}" class="movie-item animate__animated">
+                        <form action="/main/movie-info" method="post" class="movie-form"
+                              data-movie-id="${movie.movieId()}">
+                            <input type="hidden" name="movie_id" th:value="${movie.movieId()}">
+                            <img th:src="@{'/static/img/' + ${movie.movieImageGeneratedName()}}" alt="Movie Image"
+                                 class="movie-image">
+                            <h3 th:text="${movie.movieTitle()}">Movie Title</h3>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const movieImages = document.querySelectorAll('.movie-image');
+
+        movieImages.forEach(image => {
+            image.addEventListener('click', () => {
+                const form = image.closest('.movie-form');
+                if (form) {
+                    form.submit();
+                }
+            });
+        });
+    });
+
+    function performSearch() {
+        const query = document.getElementById("search-bar").value;
+
+        if (query.length > 2) {
+            fetch(`/main/search?query=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const searchResults = document.getElementById("search-results");
+                    searchResults.innerHTML = "";
+
+                    if (data.length > 0) {
+                        const ul = document.createElement("ul");
+                        data.forEach(movie => {
+                            const li = document.createElement("li");
+                            li.textContent = "dj"
+                            li.onclick = () => {
+                                window.location.href = `/main/movie-info?movie_id=${movie.movie_id}`;
+                            };
+                            ul.appendChild(li);
+                        });
+                        searchResults.appendChild(ul);
+                        searchResults.style.display = "block";
+                    } else {
+                        searchResults.style.display = "none";
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        } else {
+            document.getElementById("search-results").style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Info Page</title>
+    <link rel="stylesheet" href="/static/css/movie-info.css">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="https://www.freepnglogos.com/uploads/netflix-logo-0.png" alt="Netflix Logo" class="brand__logo">
+    </div>
+    <div class="menu">
+        <a href="#">Browse</a>
+        <a href="#">Search</a>
+    </div>
+    <div class="user-profile">
+        <img src="/static/img/icon.png" alt="User Avatar">
+    </div>
+</header>
+
+<main>
+    <div class="movie-banner">
+        <div class="gradient-overlay"></div>
+        <img src="/static/img/monkey.png" alt="Avengers: Infinity War">
+        <div class="button-container">
+            <button class="play-button" onclick="playTrailer()">
+                <div class="play-icon">▶</div>
+                Play
+            </button>
+            <button class="book-ticket-button">Book Ticket</button>
+        </div>
+    </div>
+
+    <div class="movie-details">
+        <h1>Avengers: Infinity War</h1>
+        <div class="movie-info">
+            <span>2018</span>
+            <span>|</span>
+            <span>2h 23min</span>
+            <span>|</span>
+            <span>16+</span>
+        </div>
+        <div class="movie-rating">
+            <span>9.0</span>
+            <span>⭐</span>
+        </div>
+
+        <form class="tabs" method="post" action="/change-tab">
+            <input type="hidden" name="tab" value="overview" id="tab-input">
+            <button class="tab" type="submit">Overview</button>
+            <button class="tab" type="submit" onclick="document.getElementById('tab-input').value='trailers-more'">
+                Trailers & More
+            </button>
+            <button class="tab" type="submit" onclick="document.getElementById('tab-input').value='more-like-this'">More
+                Like This
+            </button>
+            <button class="tab" type="submit" onclick="document.getElementById('tab-input').value='details'">Details
+            </button>
+        </form>
+
+        <div class="movie-description">
+            <p>The Avengers and their Super Hero allies must be willing to sacrifice all in an attempt to defeat the
+                powerful Thanos before his blitz of devastation and ruin puts an end to the universe.</p>
+        </div>
+
+        <div class="movie-cast">
+            <p><strong>Starring:</strong> Scarlett Johansson, Tessa Thompson, Robert Downey Jr</p>
+            <p><strong>Created by:</strong> Anthony Russo, Joe Russo</p>
+            <p><strong>Genre:</strong> Action, Adventure, Fantasy</p>
+        </div>
+
+        <h2>Related Movies</h2>
+        <div class="related-movies">
+            <div class="related-movie" onclick="submitForm('captain-america-civil-war')">
+                <img src="/static/img/lacasadepapel.png" alt="Related Movie 1">
+                <span>Captain America: Civil War</span>
+            </div>
+            <div class="related-movie" onclick="submitForm('avengers-age-of-ultron')">
+                <img src="/static/img/reluctant.png" alt="Related Movie 2">
+                <span>Avengers: Age of Ultron</span>
+            </div>
+            <div class="related-movie" onclick="submitForm('the-avengers')">
+                <img src="/static/img/basketball.png" alt="Related Movie 3">
+                <span>The Avengers</span>
+            </div>
+            <div class="related-movie" onclick="submitForm('the-matrix')">
+                <img src="/static/img/messi.png" alt="Related Movie 4">
+                <span>The Matrix</span>
+            </div>
+            <div class="related-movie" onclick="submitForm('john-wick')">
+                <img src="/static/img/monkey.png" alt="Related Movie 5">
+                <span>John Wick</span>
+            </div>
+            <div class="related-movie" onclick="submitForm('gladiator')">
+                <img src="/static/img/runrabit.jpg" alt="Related Movie 6">
+                <span>Gladiator</span>
+            </div>
+            <div class="related-movie" onclick="submitForm('spider-man-no-way-home')">
+                <img src="/static/img/messi.png" alt="Related Movie 7">
+                <span>Spider-Man: No Way Home</span>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Fullscreen Trailer Modal ----------->
+<div id="trailer-modal" class="trailer-modal">
+    <div class="trailer-content">
+        <span class="close" onclick="closeTrailer()">&times;</span>
+        <iframe id="trailer-video" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+
+<script>
+    function playTrailer() {
+        document.getElementById('trailer-modal').style.display = 'block';
+        document.getElementById('trailer-video').src = 'https://www.youtube.com/embed/8IIJC-T4myo'; // Correct embed URL
+    }
+
+    function closeTrailer() {
+        document.getElementById('trailer-modal').style.display = 'none';
+        document.getElementById('trailer-video').src = '';
+    }
+
+    function submitForm(movieId) {
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = '/related-movie'; // Update the action URL as needed
+
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'movieId';
+        input.value = movieId;
+        form.appendChild(input);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    function bookTicket() {
+        window.location.href = '/book-ticket'; // Update with the actual booking URL
+    }
+</script>
+</body>
+</html>

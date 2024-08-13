@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies Page</title>
+    <link rel="stylesheet" href="/static/css/movies.css">
+</head>
+<body>
+<header class="header">
+    <div class="header__brand">
+        <img src="https://www.freepnglogos.com/uploads/netflix-logo-0.png" alt="Netflix Logo" class="brand__logo">
+    </div>
+    <nav class="header__nav">
+        <a href="/main/home">HOME</a>
+        <a href="/main/movies">MOVIES</a>
+        <a href="/auth/profile" class="profile-link">
+            PROFILE
+            <img src="/static/img/icon.png" alt="Profile Icon" class="profile-icon">
+        </a>
+    </nav>
+</header>
+
+<main class="movies-page">
+    <div class="title-container">
+        <h1 class="section-title">Movies</h1>
+    </div>
+    <div class="movie-list">
+        <div class="movie-grid">
+            <!-- Dynamic Movie Cards -->
+            <div th:each="movie : ${movieList}">
+                <form th:action="@{/main/movie-info}" method="post" class="movie-card-form">
+                    <input type="hidden" name="movie_id" th:value="${movie.movieId}">
+                    <div class="movie-card" onclick="this.closest('form').submit()">
+                        <img th:src="@{'/static/img/' + ${movie.movieImageGeneratedName()}}" alt="Movie Image">
+                        <div class="movie-title" th:text="${movie.movieTitle}">Movie Title</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

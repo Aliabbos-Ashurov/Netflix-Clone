@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies Page</title>
+    <link rel="stylesheet" href="/css/movies.css">
+</head>
+<body>
+<header class="header">
+    <div class="header__brand">
+        <img src="https://www.freepnglogos.com/uploads/netflix-logo-0.png" alt="Netflix Logo" class="brand__logo">
+    </div>
+    <nav class="header__nav">
+        <a href="#">HOME</a>
+        <a href="#">MOVIES</a>
+        <a href="#" class="profile-link">
+            PROFILE
+            <img src="/static/img/icon.png" alt="Profile Icon" class="profile-icon">
+        </a>
+    </nav>
+</header>
+
+<main class="movies-page">
+    <div class="title-container">
+        <h1 class="section-title">Movies</h1>
+    </div>
+    <div class="movie-list">
+        <div class="movie-grid">
+            <!-- Movie Card 1 -->
+            <form action="/movie-info" method="post" class="movie-card-form">
+                <input type="hidden" name="movie_id" value="1">
+                <div class="movie-card" onclick="this.closest('form').submit()">
+                    <img src="/static/img/the_snitch_cartel.png" alt="Movie 1">
+                    <div class="movie-title">Movie Title 1</div>
+                </div>
+            </form>
+
+            <!-- Movie Card 2 -->
+            <form action="/movie-info" method="post" class="movie-card-form">
+                <input type="hidden" name="movie_id" value="2">
+                <div class="movie-card" onclick="this.closest('form').submit()">
+                    <img src="/static/img/monkey.png" alt="Movie 2">
+                    <div class="movie-title">Movie Title 2</div>
+                </div>
+            </form>
+
+            <!-- Add more movie cards as needed -->
+        </div>
+    </div>
+</main>
+
+<script>
+    // JavaScript to handle form submission when movie card is clicked
+    document.querySelectorAll('.movie-card').forEach(card => {
+        card.addEventListener('click', function() {
+            this.closest('form').submit();
+        });
+    });
+</script>
+</body>
+</html>

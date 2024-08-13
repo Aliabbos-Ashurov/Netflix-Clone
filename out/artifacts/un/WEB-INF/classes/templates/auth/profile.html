@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/static/css/profile.css">
+</head>
+<body>
+<header class="header">
+    <div class="header__brand">
+        <img src="https://www.freepnglogos.com/uploads/netflix-logo-0.png" alt="Netflix Logo" class="brand__logo">
+    </div>
+    <nav class="header__nav">
+        <a href="/main/home">HOME</a>
+        <a href="/main/movies">MOVIES</a>
+    </nav>
+</header>
+
+<div class="profile-page">
+    <div class="profile-header">
+        <img src="/static/img/icon.png" alt="Profile Picture" class="profile-picture">
+        <div class="profile-info">
+            <h1 th:text="${user.getFullname()}"></h1>
+            <p>Email: <span th:text="${user.getEmail()}"></span></p>
+            <p>Username: <span th:text="${user.getUsername()}"></span></p>
+            <form action="/auth/logout">
+                <input type="hidden" name="userID" th:value="${user.getId()}">
+                <button type="submit" class="logout-button">Logout</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

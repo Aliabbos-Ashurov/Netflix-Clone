@@ -1,0 +1,189 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #141414;
+    color: #fff;
+    overflow-x: hidden;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 2;
+    animation: slideInDown 0.5s ease-out;
+}
+
+.header__brand .brand__logo {
+    width: 100px;
+}
+
+.header__nav {
+    display: flex;
+    align-items: center;
+}
+
+.header__nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease;
+}
+
+.header__nav a:hover {
+    color: #e50914;
+}
+
+.profile-link {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+    transition: color 0.3s ease;
+}
+
+.profile-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    margin-left: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    object-fit: cover;
+}
+
+.profile-link:hover .profile-icon {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+.brand__logo {
+    height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.header__brand:hover .brand__logo {
+    transform: scale(1.1);
+}
+
+.header__nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header__nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.header__nav a:hover {
+    color: #e50914;
+}
+
+.profile-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.profile-icon {
+    height: 30px;
+}
+
+/* Profile Page Styles */
+.profile-page {
+    margin-top: 80px;
+    padding: 20px;
+    background: #141414;
+    color: #fff;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #333;
+    transition: transform 0.3s ease;
+}
+
+.profile-picture:hover {
+    transform: scale(1.05);
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-info h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    animation: slideIn 1s ease-out;
+}
+
+.profile-info p {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    animation: slideIn 1s ease-out;
+}
+
+.edit-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #e50914;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.edit-button:hover {
+    background-color: #b81d1d;
+    transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Info</title>
+    <link rel="stylesheet" href="/static/css/movie-info.css">
+    <style>
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            margin-top: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .video-content {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            background: #000;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2em;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="header__brand">
+        <img src="https://www.freepnglogos.com/uploads/netflix-logo-0.png" alt="Netflix Logo" class="brand__logo">
+    </div>
+    <nav class="header__nav">
+        <a href="#" class="nav-link">HOME</a>
+        <a href="#" class="nav-link">MOVIES</a>
+        <a href="#" class="nav-link profile-link">
+            PROFILE
+            <img src="/static/img/icon.png" alt="Profile Icon" class="profile-icon">
+        </a>
+    </nav>
+</header>
+<section class="movie-info">
+    <div class="banner">
+        <img src="/static/img/runrabit.jpg" alt="Main Banner">
+        <div class="banner-content">
+            <h1 class="banner-title">RUN RABBIT RUN</h1>
+            <button class="watch-thriller" onclick="showVideo()">Watch Thriller</button>
+        </div>
+    </div>
+    <section class="movie-details">
+        <div class="description">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus nec aliquet ultrices, sapien dolor gravida erat, ac gravida dui sapien non erat. Integer gravida sit amet libero in bibendum.</p>
+        </div>
+        <div class="cast">
+            <h2>Cast</h2>
+            <div class="cast-list">
+                <div class="cast-item">
+                    <img src="/static/img/messi.png" alt="Actor 1">
+                    <p>Actor 1</p>
+                </div>
+                <div class="cast-item">
+                    <img src="/static/img/messi.png" alt="Actor 2">
+                    <p>Actor 2</p>
+                </div>
+                <!-- More cast items -->
+            </div>
+        </div>
+        <div class="scenes">
+            <h2>Scenes from the Movie</h2>
+            <div class="scene-list">
+                <img src="/static/img/the_snitch_cartel.png" alt="Scene 1">
+                <img src="/static/img/the_snitch_cartel.png" alt="Scene 2">
+                <!-- More scene images -->
+            </div>
+        </div>
+        <div class="movie-info-bottom">
+            <div class="info">
+                <h3>Details</h3>
+                <p>Runtime: 120 mins</p>
+                <p>Country: USA</p>
+                <p>Stars: Actor 1, Actor 2</p>
+            </div>
+            <div class="booking">
+                <h3>Book Tickets</h3>
+                <form action="/booking" method="post">
+                    <label for="time">Time:</label>
+                    <select id="time" name="time">
+                        <option value="10:00">10:00 AM</option>
+                        <option value="13:00">01:00 PM</option>
+                        <!-- More time options -->
+                    </select>
+                    <label for="places">Places:</label>
+                    <select id="places" name="places">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <!-- More place options -->
+                    </select>
+                    <label for="zone">Zone:</label>
+                    <select id="zone" name="zone">
+                        <option value="A">Zone A</option>
+                        <option value="B">Zone B</option>
+                        <!-- More zone options -->
+                    </select>
+                    <label for="price">Price:</label>
+                    <input type="text" id="price" name="price" value="$10.00" readonly>
+                    <button type="submit" class="book-now">Book Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <div id="video-modal" class="video-modal">
+        <div class="video-content">
+            <span class="close" onclick="closeVideo()">&times;</span>
+            <iframe id="video-frame" width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+    </div>
+</section>
+<script>
+    function showVideo() {
+        document.getElementById('video-frame').src = 'https://www.youtube.com/embed/RlfooqeZcdY?si=h2dAfalCdXFO8eg8';
+        document.getElementById('video-modal').style.display = 'flex';
+    }
+
+    function closeVideo() {
+        document.getElementById('video-frame').src = '';
+        document.getElementById('video-modal').style.display = 'none';
+    }
+</script>
+</body>
+</html>

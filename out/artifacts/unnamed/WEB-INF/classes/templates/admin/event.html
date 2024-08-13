@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event</title>
+    <link rel="stylesheet" href="/static/css/event.css">
+</head>
+<body>
+<div class="container">
+    <h1>Create Event</h1>
+    <form id="create-event-form" action="/create-event" method="post">
+        <div class="cinema-hall-selection">
+            <label>
+                <input type="radio" name="cinema_hall_id" value="1" required>
+                <img src="/static/img/cinema1.png" alt="Cinema 1">
+                <span>Cinema 1</span>
+            </label>
+            <label>
+                <input type="radio" name="cinema_hall_id" value="2" required>
+                <img src="/static/img/cinema2.png" alt="Cinema 2">
+                <span>Cinema 2</span>
+            </label>
+            <label>
+                <input type="radio" name="cinema_hall_id" value="2" required>
+                <img src="/static/img/cinema1.png" alt="Cinema 2">
+                <span>Cinema 2</span>
+            </label>
+            <label>
+                <input type="radio" name="cinema_hall_id" value="2" required>
+                <img src="/static/img/cinema2.png" alt="Cinema 2">
+                <span>Cinema 2</span>
+            </label>
+            <!-- Add more cinema halls as needed -->
+        </div>
+
+        <label for="show-time">Show Time:</label>
+        <input type="datetime-local" id="show-time" name="show_time" required>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" step="0.01" min="0" required>
+
+        <label for="available-seats">Available Seats:</label>
+        <input type="number" id="available-seats" name="available_seats" required>
+
+        <label for="status">Status:</label>
+        <input type="text" id="status" name="status" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="4"></textarea>
+
+        <button type="submit">Create Event</button>
+    </form>
+</div>
+</body>
+</html>

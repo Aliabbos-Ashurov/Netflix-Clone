@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Zone</title>
+    <link rel="stylesheet" href="/static/css/event-zone.css">
+</head>
+<body>
+<header>
+    <!-- Header content goes here -->
+    <h1>Event Zone</h1>
+</header>
+
+<main>
+    <div th:unless="${#lists.isEmpty(events)}" class="events-container">
+        <form method="post" action="/main/book-ticket">
+            <div th:each="event : ${events}" class="event-card">
+                <div class="event-content">
+                    <div class="cinema-image">
+                        <img th:src="@{'/static/img/' + ${event.imageGeneratedName()}}" alt="Cinema Hall Image">
+                        <div class="gradient-overlay"></div>
+                    </div>
+                    <div class="event-info">
+                        <p><strong>Cinema Hall:</strong> <span th:text="${event.cinemaHallName()}">Cinema Hall Name</span></p>
+                        <p><strong>Status:</strong> <span th:text="${event.cinemaHallStatus()}">Cinema Hall Status</span></p>
+                        <h2><strong>Price:</strong> <span th:text="${event.price()}">Price</span></h2>
+                        <p><strong>Show Time:</strong> <span th:text="${event.showTime()}">Show Time</span></p>
+                        <p><strong>Facilities:</strong> <span th:text="${event.cinemaHallFacilities()}">Facilities</span></p>
+                    </div>
+                    <input type="hidden" name="movie_id" th:value="${movieId}">
+                    <button class="book-ticket-button" type="submit" name="event_id" th:value="${event.eventId()}">Book Ticket</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div th:if="${#lists.isEmpty(events)}" class="no-events">
+        <p>No upcoming events for this movie.</p>
+    </div>
+</main>
+
+</body>
+</html>
