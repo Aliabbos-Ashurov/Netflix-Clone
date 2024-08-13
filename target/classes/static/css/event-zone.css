@@ -1,0 +1,134 @@
+body {
+    background-color: #141414;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    min-height: 100vh; /* Ensure body covers full viewport height */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #141414;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 1s ease-in-out;
+}
+
+main {
+    padding: 20px;
+    min-height: 100vh; /* Ensure main section covers full viewport height */
+}
+
+.events-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 1400px; /* Increased max-width */
+}
+
+.event-card {
+    display: flex;
+    flex-direction: row;
+    background: rgba(20, 20, 20, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    margin: 20px 0;
+    width: 100%;
+    max-width: 1200px; /* Increased max-width */
+    animation: fadeInUp 1s ease-in-out;
+    position: relative; /* Ensure button is positioned above content */
+}
+
+.event-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    position: relative; /* Ensure button is positioned above content */
+}
+
+.cinema-image {
+    position: relative;
+    flex: 0 0 400px; /* Adjusted width */
+    height: 250px; /* Adjusted height */
+    overflow: hidden;
+}
+
+.cinema-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%; /* Gradient width */
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+    z-index: 1;
+}
+
+.event-info {
+    padding: 20px;
+    flex: 1;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+.event-info h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.event-info p {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+.book-ticket-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease;
+    margin: 20px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 3; /* Ensure button is on top */
+}
+
+.book-ticket-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.no-events {
+    text-align: center;
+    color: #e50914;
+    font-size: 18px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

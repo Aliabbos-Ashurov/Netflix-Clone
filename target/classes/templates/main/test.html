@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apple-style Date Picker</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .picker-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      width: 400px;  /* Increased width */
+      height: 150px; /* Increased height */
+      position: relative;
+    }
+
+    .picker {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 50%; /* Adjusted width for larger picker */
+      height: 100%;
+      z-index: 1;
+    }
+
+    .picker select {
+      appearance: none;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 30px; /* Increased font size */
+      font-weight: bold;
+      text-align: center;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      outline: none;
+      overflow: hidden;
+    }
+
+    .picker div:before,
+    .picker div:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .picker div:before {
+      top: 0;
+    }
+
+    .picker div:after {
+      bottom: 0;
+      transform: rotate(180deg);
+    }
+
+    .highlight {
+      position: absolute;
+      width: 100%;
+      height: 50px; /* Adjusted height for highlight */
+      top: calc(50% - 25px); /* Centered highlight */
+      background-color: rgba(255, 255, 255, 0.1);
+      z-index: 3;
+    }
+
+    .picker select option {
+      font-size: 30px; /* Match font size with picker */
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+    }
+
+    .picker select::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="picker-container">
+  <div class="highlight"></div>
+  <div class="picker">
+    <select id="month-select">
+      <!-- Months will be populated by JS -->
+    </select>
+  </div>
+  <div class="picker">
+    <select id="day-select">
+      <!-- Days will be populated by JS -->
+    </select>
+  </div>
+</div>
+
+<script>
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  const monthSelect = document.getElementById('month-select');
+  const daySelect = document.getElementById('day-select');
+
+  // Populate months
+  months.forEach((month, index) => {
+    const option = document.createElement('option');
+    option.value = index + 1;
+    option.textContent = month;
+    monthSelect.appendChild(option);
+  });
+
+  // Populate days
+  function populateDays(month) {
+    daySelect.innerHTML = '';
+    const daysInMonth = new Date(2024, month, 0).getDate();
+    for (let i = 1; i <= daysInMonth; i++) {
+      const option = document.createElement('option');
+      option.value = i;
+      option.textContent = i < 10 ? '0' + i : i;
+      daySelect.appendChild(option);
+    }
+  }
+
+  // Update days when month changes
+  monthSelect.addEventListener('change', () => {
+    populateDays(monthSelect.value);
+  });
+
+  // Initial population with current month
+  const currentMonth = new Date().getMonth() + 1;
+  monthSelect.value = currentMonth;
+  populateDays(currentMonth);
+</script>
+
+</body>
+</html>

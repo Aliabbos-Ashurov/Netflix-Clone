@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event</title>
+    <link rel="stylesheet" href="/static/css/event.css">
+</head>
+<body>
+<div class="container">
+    <h1>Create Event</h1>
+    <form id="create-event-form" action="/admin/event" method="post">
+        <div class="cinema-hall-selection">
+            <div th:each="cinema : ${cinemaDetails}">
+                <label>
+                    <input type="radio" name="cinemaHallId" th:value="${cinema.cinemaHallId()}" required>
+                    <img th:src="@{'/static/img/' + ${cinema.imageGeneratedName()}}"
+                         th:alt="${cinema.cinemaHallName()}">
+                    <h3 th:text="${cinema.cinemaHallName()}"></h3>
+                    <span th:text="${cinema.cinemaHallStatus()}"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="date-picker">
+            <div>
+                <select id="month-select" name="month">
+                    <!-- Months will be populated by JS -->
+                </select>
+            </div>
+            <div>
+                <select id="day-select" name="day">
+                    <!-- Days will be populated by JS -->
+                </select>
+            </div>
+            <div>
+                <select id="year-select" name="year">
+                    <!-- Years will be populated by JS -->
+                </select>
+            </div>
+            <div>
+                <select id="hour-select" name="hour">
+                    <!-- Hours will be populated by JS -->
+                </select>
+            </div>
+        </div>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" step="0.01" min="0" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="4"></textarea>
+
+        <input type="hidden" name="movieId" th:value="${movieID}">
+
+        <button type="submit">Create Event</button>
+    </form>
+</div>
+
+<script>
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth();
+    const currentDay = today.getDate();
+    const currentHour = today.getHours();
+
+    const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    const monthSelect = document.getElementById('month-select');
+    const daySelect = document.getElementById('day-select');
+    const yearSelect = document.getElementById('year-select');
+    const hourSelect = document.getElementById('hour-select');
+
+    // Populate months
+    months.forEach((month, i) => {
+        const option = document.createElement('option');
+        option.value = i + 1;
+        option.textContent = month;
+        if (i === currentMonth) option.selected = true;
+        monthSelect.appendChild(option);
+    });
+
+    // Populate days
+    function populateDays(month, year) {
+        daySelect.innerHTML = '';
+        const daysInMonth = new Date(year, month, 0).getDate();
+        for (let i = 1; i <= daysInMonth; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = i < 10 ? '0' + i : i;
+            if (i === currentDay) option.selected = true;
+            daySelect.appendChild(option);
+        }
+    }
+
+    // Populate years
+    const maxYear = currentYear + 1;
+    for (let i = currentYear; i <= maxYear; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i;
+        yearSelect.appendChild(option);
+    }
+
+    // Populate hours
+    for (let i = 0; i < 24; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i < 10 ? '0' + i : i;
+        if (i === currentHour) option.selected = true;
+        hourSelect.appendChild(option);
+    }
+
+    monthSelect.addEventListener('change', () => {
+        populateDays(parseInt(monthSelect.value), parseInt(yearSelect.value));
+    });
+
+    yearSelect.addEventListener('change', () => {
+        populateDays(parseInt(monthSelect.value), parseInt(yearSelect.value));
+    });
+
+    populateDays(currentMonth, currentYear);
+</script>
+</body>
+</html>

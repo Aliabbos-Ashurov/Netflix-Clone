@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinema Seat Selection</title>
+    <link rel="stylesheet" href="/static/css/book_ticket.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="screen-wrapper">
+        <div class="screen"></div>
+    </div>
+
+    <form action="/main/ticket-success" method="post" id="seat-form">
+        <input type="hidden" name="cinema_hall_id" th:value="${cinemaHall.getId()}"/>
+        <input type="hidden" name="movie_id" th:value="${movieID}"/>
+        <input type="hidden" name="eventID" th:value="${eventID}"/>
+        <input type="hidden" name="row" id="row"/>
+        <input type="hidden" name="column" id="column"/>
+
+        <div class="cinema-seats" id="cinema-seats">
+            <div class="row">
+                <!-- Loop through rows and seats -->
+                <div th:each="row, rowStat : ${seats}" class="row">
+                    <div th:each="seat, colStat : ${row}"
+                         class="seat"
+                         th:classappend="${seat == 1} ? 'taken' : ''"
+                         th:data-row="${rowStat.index + 1}"
+                         th:data-column="${colStat.index + 1}">
+                        <span th:text="${rowStat.index + 1} + ':' + ${colStat.index + 1}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info" id="seat-info">Select a seat</div>
+
+        <button type="submit" class="submit-btn" id="submit-btn">Submit Selection</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const cinemaSeats = document.getElementById('cinema-seats');
+        const seatInfo = document.getElementById('seat-info');
+        const selectedSeatRowInput = document.getElementById('row');
+        const selectedSeatColumnInput = document.getElementById('column');
+        let selectedSeat = null;
+
+        cinemaSeats.addEventListener('click', function (event) {
+            const seat = event.target.closest('.seat');
+            if (seat && !seat.classList.contains('taken')) {
+                if (selectedSeat) {
+                    selectedSeat.classList.remove('selected');
+                }
+                selectedSeat = seat;
+                seat.classList.add('selected');
+                const seatRow = seat.dataset.row;
+                const seatColumn = seat.dataset.column;
+                selectedSeatRowInput.value = seatRow;
+                selectedSeatColumnInput.value = seatColumn;
+                seatInfo.textContent = `Selected Seat: ${seatRow}:${seatColumn}`;
+            }
+        });
+
+        document.getElementById('submit-btn').addEventListener('click', function (event) {
+            if (!selectedSeat) {
+                alert('Please select a seat first.');
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

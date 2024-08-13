@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/static/css/profile.css">
+</head>
+<body>
+<header class="header">
+    <div class="header__brand">
+        <img src="https://www.freepnglogos.com/uploads/netflix-logo-0.png" alt="Netflix Logo" class="brand__logo">
+    </div>
+    <nav class="header__nav">
+        <a href="/main/home">Home</a>
+        <a href="/main/movies">Movies</a>
+        <a href="/auth/profile">Profile</a>
+    </nav>
+</header>
+
+<div class="profile-page">
+    <div class="profile-header">
+        <img src="/static/img/icon.png" alt="Profile Picture" class="profile-picture">
+        <div class="profile-info">
+            <h1 th:text="${user.getFullname()}"></h1>
+            <p>Email: <span th:text="${user.getEmail()}"></span></p>
+            <form action="/auth/logout">
+                <input type="hidden" name="userID" th:value="${user.getId()}">
+                <button type="submit" class="logout-button">Logout</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="tickets-section">
+        <h2>Your Tickets</h2>
+        <table class="tickets-table">
+            <thead>
+            <tr>
+                <th>Image</th>
+                <th>Movie Title</th>
+                <th>Status</th>
+                <th>Price</th>
+                <th>Row</th>
+                <th>Column</th>
+                <th>Show Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Example row, dynamically populate with Thymeleaf or your templating engine -->
+            <tr th:each="ticket : ${tickets}">
+                <td>
+                    <img th:src="@{'/static/img/' + ${ticket.imageName()}}" alt="Movie Poster" class="ticket-image">
+                </td>
+                <td th:text="${ticket.movieTitle()}"></td>
+                <td th:text="${ticket.status()}"></td>
+                <td th:text="${ticket.price()}"></td>
+                <td th:text="${ticket.rowSeat()}"></td>
+                <td th:text="${ticket.columnSeat()}"></td>
+                <td th:text="${ticket.showTime()}"></td>
+            </tr>
+            <!-- Repeat rows for each ticket -->
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
