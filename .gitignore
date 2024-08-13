@@ -38,6 +38,9 @@ build/
 .DS_Store!/.gitignore
 
 /.idea
+/.idea/
 /target
 web
 NetflixClone.iml
+!/.idea/
+!/target/
