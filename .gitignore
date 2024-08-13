@@ -44,3 +44,5 @@ web
 NetflixClone.iml
 !/.idea/
 !/target/
+/target/
+/.idea/
